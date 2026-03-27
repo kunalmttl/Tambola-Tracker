@@ -1,17 +1,26 @@
 # Project State
 
-## Current Phase: 0 (Initialization)
-- Setup basic repo (`README.md`, `context.md`, `project_state.md`)
-- Initialize Git repository and link to the cloud remote (`https://github.com/kunalmttl/Tambola-Tracker.git`)
+## Current Phase: 11 — OCR Engine Overhaul & Feature Refinement
+- **Phase 11 Completed:** Completely re-engineered the OCR engine (`ocr.js`) using Tesseract.js v7 with a custom image preprocessing pipeline and a recursive backtracking line-splitter. This resolved critical extraction failures where numbers were fused into single strings. Successfully tested against real-world Tambola tickets.
+- **Feature:** "Any Row" rule multiplier limit increased from 5 to 10 in `RulesPanel.jsx`.
 
 ## Finished Phases
-- Phase 0: Basic scaffold initialized.
-
-## Pending Phases
-- Awaiting Phase 1 instructions from the user.
+- **Phase 0 (Scaffold):** Vite, React 19, Tailwind, Zustand, Lucide, IDB.
+- **Phase 1 (Store):** Zustand `useMatchStore` & `useTicketStore` models.
+- **Phase 2 (Rules Logic):** Pure functions for all 11 rule evaluators.
+- **Phase 3 (Tickets Management):** AddTicketModal with grid validation and OCR via `tesseract.js`.
+- **Phase 4 (Setup Screens):** RulesPanel with toggles and multiplier spinners. Home page pre-match flow.
+- **Phase 5 (Live Match):** NumberCaller, CalledNumbersBoard, TicketGrid with real-time hit detection.
+- **Phase 6 (IndexedDB):** Persistent tickets and matchConfig via `idb` library.
+- **Phase 7 (Polish):** Animations, focus traps, keyboard shortcuts, responsive layout.
+- **Phase 8 (Edge Cases):** Duplicate number rejection, undo with win reversal, match-over banners.
+- **Phase 9 (Final Checklist):** All rule evaluators tested, zero console errors, clean build.
+- **Phase 10 (Dark-Premium Redesign):** Complete UI overhaul — navy-black base, amber CTAs, green hits, gold wins, Syne/Inter/Space Mono typography.
+- **Phase 11 (OCR Overhaul):** Migrated to Tesseract.js v7, added canvas preprocessing (1.8x contrast), and implemented a backtracking digit-string splitter for robust grid-ticket parsing.
 
 ## Bugs / Issues
-- None so far.
+- [FIXED] OCR extraction failures (0 numbers found) due to fused digit strings. Now handled via backtracking splitter.
+- [FIXED] Any Row limit was capped at 5. Now 10.
 
 ## Next Steps
-- Verify repository setup and wait for the first functional phase.
+- Awaiting user feedback or further feature requests.
