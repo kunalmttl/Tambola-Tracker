@@ -1,0 +1,274 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-base:      #0C0F1A;
+  --bg-elevated:  #141826;
+  --bg-surface:   #1C2235;
+  --bg-overlay:   #252D42;
+
+  --amber:        #F0B429;
+  --amber-dim:    #8B6514;
+  --amber-glow:   rgba(240, 180, 41, 0.20);
+
+  --hit:          #12F28A;
+  --hit-bg:       #0A2620;
+  --hit-glow:     rgba(18, 242, 138, 0.35);
+  --hit-text:     #001A10;
+
+  --win-gold:     #FFD700;
+  --win-gold-bg:  rgba(255, 215, 0, 0.10);
+  --win-gold-border: rgba(255, 215, 0, 0.60);
+
+  --danger:       #FF4757;
+  --danger-dim:   rgba(255, 71, 87, 0.15);
+
+  --info:         #4ECDC4;
+  --info-dim:     rgba(78, 205, 196, 0.12);
+
+  --text-primary:   #EDF0FF;
+  --text-secondary: #7B88A8;
+  --text-muted:     #3D4A65;
+
+  --ticket-bg:      #161C2E;
+  --ticket-border:  #2A3555;
+  --ticket-grid:    #1F2840;
+  --cell-blank:     #0F1320;
+  --cell-unfilled:  #1E2845;
+  --cell-called:    var(--hit-bg);
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+}
+
+@layer base {
+  body {
+    background-color: var(--bg-base);
+    font-family: 'Inter', sans-serif;
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer components {
+  /* ========== CARD ========== */
+  .card {
+    background-color: var(--bg-elevated);
+    border: 1px solid var(--bg-overlay);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  /* ========== BUTTONS ========== */
+  .btn {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.875rem;
+    padding: 0.625rem 1.25rem;
+    border-radius: var(--radius-md);
+    transition: all 0.15s ease;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .btn-amber {
+    background-color: var(--amber);
+    color: #0C0F1A;
+  }
+  .btn-amber:hover:not(:disabled) {
+    filter: brightness(1.1);
+    box-shadow: 0 0 20px var(--amber-glow);
+  }
+  .btn-amber:disabled {
+    background-color: var(--amber-dim);
+    color: var(--text-muted);
+    box-shadow: none;
+  }
+
+  .btn-danger {
+    background-color: var(--danger);
+    color: white;
+  }
+  .btn-danger:hover:not(:disabled) {
+    filter: brightness(1.1);
+  }
+
+  .btn-ghost {
+    background-color: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--bg-overlay);
+  }
+  .btn-ghost:hover:not(:disabled) {
+    border-color: var(--text-muted);
+    color: var(--text-primary);
+    background-color: var(--bg-surface);
+  }
+
+  .btn-danger-ghost {
+    background-color: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--bg-overlay);
+  }
+  .btn-danger-ghost:hover:not(:disabled) {
+    border-color: var(--danger);
+    color: var(--danger);
+    background-color: var(--danger-dim);
+  }
+
+  /* ========== INPUT ========== */
+  .input-dark {
+    width: 100%;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--bg-overlay);
+    border-radius: var(--radius-md);
+    padding: 0.625rem 1rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 0.875rem;
+    color: var(--text-primary);
+    transition: all 0.15s ease;
+  }
+  .input-dark::placeholder {
+    color: var(--text-muted);
+  }
+  .input-dark:focus {
+    outline: none;
+    border-color: var(--amber);
+    box-shadow: 0 0 0 3px var(--amber-glow);
+  }
+
+  /* ========== TOGGLE SWITCH ========== */
+  .toggle-switch {
+    position: relative;
+    width: 2.75rem;
+    height: 1.5rem;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    background-color: var(--bg-overlay);
+    flex-shrink: 0;
+  }
+  .toggle-switch::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 1.125rem;
+    height: 1.125rem;
+    border-radius: 9999px;
+    background-color: var(--text-muted);
+    transition: all 0.2s ease;
+  }
+  .toggle-switch.active {
+    background-color: var(--amber-dim);
+  }
+  .toggle-switch.active::after {
+    transform: translateX(1.25rem);
+    background-color: var(--amber);
+  }
+
+  /* ========== NUMBER CELL (Board) ========== */
+  .board-cell {
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    border-radius: var(--radius-sm);
+    transition: all 0.15s ease;
+  }
+  .board-cell.uncalled {
+    background-color: var(--bg-surface);
+    color: var(--text-muted);
+    font-weight: 400;
+  }
+  .board-cell.called {
+    background-color: var(--hit);
+    color: var(--hit-text);
+    font-weight: 700;
+    box-shadow: 0 0 6px var(--hit-glow);
+    transform: scale(1.05);
+  }
+
+  /* ========== TICKET CELL ========== */
+  .ticket-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    border-radius: var(--radius-sm);
+    transition: all 0.2s ease;
+  }
+  .ticket-cell.blank {
+    background-color: var(--cell-blank);
+    border: 0.5px solid var(--ticket-grid);
+  }
+  .ticket-cell.unfilled {
+    background-color: var(--cell-unfilled);
+    color: var(--text-primary);
+    border: 0.5px solid var(--ticket-grid);
+  }
+  .ticket-cell.hit {
+    background-color: var(--hit-bg);
+    color: var(--hit);
+    border: 1px solid var(--hit);
+    box-shadow: 0 0 8px var(--hit-glow), inset 0 0 6px rgba(18,242,138,0.15);
+  }
+
+  /* ========== WIN BADGE ========== */
+  .win-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.5rem;
+    border-radius: 9999px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.625rem;
+    background-color: var(--win-gold-bg);
+    color: var(--win-gold);
+    border: 1px solid var(--win-gold-border);
+  }
+
+  /* ========== PILL BADGE ========== */
+  .pill-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem 0.625rem;
+    border-radius: 9999px;
+    font-family: 'Space Mono', monospace;
+    font-weight: 600;
+    font-size: 0.75rem;
+    background-color: var(--amber-glow);
+    color: var(--amber);
+  }
+
+  /* ========== ALIAS CHIP ========== */
+  .alias-chip {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 0.6875rem;
+    color: var(--text-secondary);
+    background-color: var(--bg-surface);
+    border-radius: 9999px;
+    padding: 0.125rem 0.5rem;
+  }
+}
