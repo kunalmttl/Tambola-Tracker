@@ -32,3 +32,4 @@ walkthrough/list.txt
 walkthrough/*.webp
 walkthrough/check_frames.py
 walkthrough/convert_walkthrough.py
+.vercel

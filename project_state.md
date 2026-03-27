@@ -17,6 +17,7 @@
 - **Phase 10 (Dark-Premium Redesign):** Complete UI overhaul — navy-black base, amber CTAs, green hits, gold wins, Syne/Inter/Space Mono typography.
 - **Phase 11 (OCR Overhaul):** Backtracking digit-string splitter and Canvas preprocessing.
 - **Phase 12 (Definitive Walkthrough):** 160-second master demo video captured and linked.
+- **Phase 13 (Vercel Hosting):** Deployed the application to Vercel production with SPA routing configuration (`vercel.json`). Verified live status at `https://tambolatracker.vercel.app/`.
 
 ## Bugs / Issues
 - [FIXED] OCR extraction failures (0 numbers found) due to fused digit strings. Now handled via backtracking splitter.

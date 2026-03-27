@@ -4,8 +4,14 @@
 [![Vite 8](https://img.shields.io/badge/Vite-8-%23646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
 [![TailwindCSS v3](https://img.shields.io/badge/TailwindCSS-v3-%2338B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Vercel Deployment](https://img.shields.io/badge/Vercel-Deployment-black?logo=vercel&logoColor=white)](https://tambolatracker.vercel.app/)
 
 A professional-grade **Tambola (Housie) Companion** designed for the modern lottery enthusiast. Featuring a **Dark-Premium Lottery Terminal** aesthetic, a robust **backtracking OCR engine**, and multi-claim rule tracking.
+
+---
+
+## 🚀 Live Demo
+**[Launch Tambola Tracker on Vercel](https://tambolatracker.vercel.app/)**
 
 ---
 

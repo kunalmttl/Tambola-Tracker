@@ -1,7 +1,7 @@
 # Project Context
 
-## Status: ⚡ STABLE & VERIFIED (v1.2)
-The application has undergone a full feature walkthrough, covering Rule Configuration, OCR Integration, and a complete Live Match simulation (Early 5 to Full House). All systems are verified on `localhost:5173`.
+## Status: ⚡ STABLE, VERIFIED & HOSTED (v1.2)
+The application is fully verified and hosted on Vercel at [https://tambolatracker.vercel.app](https://tambolatracker.vercel.app/).
 
 ## Overview
 A comprehensive Tambola (Housie) Tracker web app. Users manually define tickets (or scan via OCR), configure a wide array of rule multipliers, track a live match, automatically compute multi-ticket rule wins, and persist configurations to IndexedDB.
