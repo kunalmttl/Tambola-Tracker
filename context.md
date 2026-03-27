@@ -1,5 +1,8 @@
 # Project Context
 
+## Status: ⚡ STABLE & VERIFIED (v1.2)
+The application has undergone a full feature walkthrough, covering Rule Configuration, OCR Integration, and a complete Live Match simulation (Early 5 to Full House). All systems are verified on `localhost:5173`.
+
 ## Overview
 A comprehensive Tambola (Housie) Tracker web app. Users manually define tickets (or scan via OCR), configure a wide array of rule multipliers, track a live match, automatically compute multi-ticket rule wins, and persist configurations to IndexedDB.
 
@@ -31,3 +34,7 @@ A comprehensive Tambola (Housie) Tracker web app. Users manually define tickets 
 - `cellHit` — scale+color flash on ticket cell
 - `winPulse` — gold glow infinite pulse on winning ticket
 - `toastIn` — slide-down + scale for win toast
+
+## Verification & Walkthrough
+- **Definitive Walkthrough Captured**: A 2 min 42 sec master video demonstrating the complete app lifecycle (Setup → Gameplay → Wins → Exit) has been created using a custom frame-accurate OpenCV pipeline.
+- **Location**: `walkthrough/Tambola_Tracker_Walkthrough.mp4`.

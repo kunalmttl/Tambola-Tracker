@@ -1,8 +1,7 @@
 # Project State
 
-## Current Phase: 11 — OCR Engine Overhaul & Feature Refinement
-- **Phase 11 Completed:** Completely re-engineered the OCR engine (`ocr.js`) using Tesseract.js v7 with a custom image preprocessing pipeline and a recursive backtracking line-splitter. This resolved critical extraction failures where numbers were fused into single strings. Successfully tested against real-world Tambola tickets.
-- **Feature:** "Any Row" rule multiplier limit increased from 5 to 10 in `RulesPanel.jsx`.
+- **Phase 11 (OCR Overhaul):** Migrated to Tesseract.js v7, added canvas preprocessing (1.8x contrast), and implemented a backtracking digit-string splitter for robust grid-ticket parsing.
+- **Phase 12 (Walkthrough & Documentation):** Conducted a multi-phase definitive walkthrough capturing rule config, OCR, and a complete match (Full House win triggered). Generated a consolidated MP4 walkthrough via OpenCV/FFmpeg.
 
 ## Finished Phases
 - **Phase 0 (Scaffold):** Vite, React 19, Tailwind, Zustand, Lucide, IDB.
@@ -16,11 +15,14 @@
 - **Phase 8 (Edge Cases):** Duplicate number rejection, undo with win reversal, match-over banners.
 - **Phase 9 (Final Checklist):** All rule evaluators tested, zero console errors, clean build.
 - **Phase 10 (Dark-Premium Redesign):** Complete UI overhaul — navy-black base, amber CTAs, green hits, gold wins, Syne/Inter/Space Mono typography.
-- **Phase 11 (OCR Overhaul):** Migrated to Tesseract.js v7, added canvas preprocessing (1.8x contrast), and implemented a backtracking digit-string splitter for robust grid-ticket parsing.
+- **Phase 11 (OCR Overhaul):** Backtracking digit-string splitter and Canvas preprocessing.
+- **Phase 12 (Definitive Walkthrough):** 160-second master demo video captured and linked.
 
 ## Bugs / Issues
 - [FIXED] OCR extraction failures (0 numbers found) due to fused digit strings. Now handled via backtracking splitter.
 - [FIXED] Any Row limit was capped at 5. Now 10.
 
 ## Next Steps
-- Awaiting user feedback or further feature requests.
+- Implement advanced match analytics (Average claim time, ticket heatmaps).
+- Add support for WebSocket-based ticket syncing across multiple devices.
+- Maintenance and bug-fixes based on user feedback.

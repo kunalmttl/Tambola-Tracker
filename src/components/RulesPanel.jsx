@@ -1,108 +1,108 @@
-import { Minus, Plus } from 'lucide-react';
+import { Minus, Plus, SlidersHorizontal, Zap, Star, AlignJustify, LayoutGrid } from 'lucide-react';
+import { useMatchStore } from '../store/useMatchStore';
 
-const RULES = [
-  { id: 'EARLY_5', name: 'Early Five', description: 'First 5 numbers marked on any ticket' },
-  { id: 'TOP_ROW', name: 'Top Row', description: 'All 5 numbers in the top row' },
-  { id: 'MIDDLE_ROW', name: 'Middle Row', description: 'All 5 numbers in the middle row' },
-  { id: 'BOTTOM_ROW', name: 'Bottom Row', description: 'All 5 numbers in the bottom row' },
-  { id: 'FULL_HOUSE', name: 'Full House', description: 'All 15 numbers on a ticket' },
-  { id: 'CORNERS', name: 'Corners', description: 'First and last numbers of top and bottom rows' },
-  { id: 'HINDUSTAN', name: 'Hindustan', description: 'Top row 1-5 and bottom row 6-9' },
-  { id: 'PAKISTAN', name: 'Pakistan', description: 'Top row 6-9 and bottom row 1-5' },
-  { id: 'ANY_ROW', name: 'Any Row', description: 'Any completed row (up to 10 claims)' },
-  { id: 'HALF_HOUSE', name: 'Half House', description: 'Any 7 or 8 numbers marked' },
-  { id: 'STAR', name: 'Star', description: 'Center number of middle row + 4 corners' },
-];
+const ruleIcons = {
+  'EARLY_5': Zap,
+  'TOP_ROW': AlignJustify,
+  'MIDDLE_ROW': AlignJustify,
+  'BOTTOM_ROW': AlignJustify,
+  'ANY_ROW': AlignJustify,
+  'CORNERS': LayoutGrid,
+  'FULL_HOUSE': Star,
+};
 
-export default function RulesPanel({ config, onChange }) {
-  const toggleRule = (ruleId) => {
-    const newConfig = { ...config };
-    if (newConfig[ruleId]) {
-      delete newConfig[ruleId];
-    } else {
-      newConfig[ruleId] = { enabled: true, multiplier: 1 };
-    }
-    onChange(newConfig);
-  };
-
-  const updateMultiplier = (ruleId, delta) => {
-    const newConfig = { ...config };
-    if (!newConfig[ruleId]) return;
-    
-    // Any Row can be up to 10, others up to 5
-    const max = ruleId === 'ANY_ROW' ? 10 : 5;
-    const current = newConfig[ruleId].multiplier || 1;
-    const nextValue = Math.max(1, Math.min(max, current + delta));
-    
-    newConfig[ruleId] = { ...newConfig[ruleId], multiplier: nextValue };
-    onChange(newConfig);
-  };
+export default function RulesPanel() {
+  const { rules, toggleRule, setRuleMultiplier } = useMatchStore();
 
   return (
-    <div className="space-y-4">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-        {RULES.map((rule) => {
-          const isEnabled = config[rule.id]?.enabled;
-          const multiplier = config[rule.id]?.multiplier || 1;
-          const maxMultiplier = rule.id === 'ANY_ROW' ? 10 : 5;
+    <div className="card">
+      <div className="flex items-center gap-2 px-5 py-4 border-b border-overlay">
+        <SlidersHorizontal size={18} className="text-amber" />
+        <h2 className="font-heading font-[700] text-lg text-text-primary">Configure Rules</h2>
+      </div>
+
+      <div className="p-4 sm:p-5 space-y-2">
+        {rules.map((rule) => {
+          const nameParts = rule.name.split(' / ');
+          const mainName = nameParts[0];
+          const aliases = nameParts.slice(1).join(', ');
+          const IconComp = ruleIcons[rule.id] || Star;
 
           return (
             <div
               key={rule.id}
-              className={`p-4 rounded-xl border transition-all duration-300 ${
-                isEnabled
-                  ? 'bg-surface border-amber/40 shadow-glow-amber/5'
-                  : 'bg-surface/40 border-overlay hover:border-overlay-hover'
-              }`}
+              role="checkbox"
+              aria-checked={rule.enabled}
+              aria-label={`Toggle rule ${mainName}`}
+              className={`flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 sm:p-4 rounded-lg border transition-all cursor-pointer select-none
+                ${rule.enabled
+                  ? 'bg-amber/5 border-amber/20'
+                  : 'bg-transparent border-overlay hover:border-text-muted/30'
+                }`}
+              onClick={(e) => {
+                if (e.target.closest('button.spinner')) return;
+                toggleRule(rule.id);
+              }}
             >
-              <div className="flex items-start justify-between gap-4">
-                <div className="flex-1 cursor-pointer" onClick={() => toggleRule(rule.id)}>
-                  <div className="flex items-center gap-2 mb-1">
-                    <div className={`w-2 h-2 rounded-full ${isEnabled ? 'bg-amber animate-pulse' : 'bg-text-muted/30'}`} />
-                    <h4 className={`font-semibold transition-colors ${isEnabled ? 'text-amber' : 'text-text-secondary'}`}>
-                      {rule.name}
-                    </h4>
+              <div className="flex items-start gap-3">
+                {/* Icon */}
+                <IconComp size={16} className={`mt-0.5 shrink-0 ${rule.enabled ? 'text-amber' : 'text-text-muted'}`} />
+
+                <div className="flex flex-col">
+                  <div className="flex flex-wrap items-baseline gap-2">
+                    <span className="font-body font-semibold text-sm text-text-primary">
+                      {mainName}
+                    </span>
+                    {aliases && (
+                      <span className="alias-chip">{aliases}</span>
+                    )}
                   </div>
-                  <p className="text-[11px] text-text-muted leading-relaxed">
+                  <span className="text-xs text-text-secondary mt-0.5">
                     {rule.description}
-                  </p>
+                  </span>
                 </div>
+              </div>
 
-                <div className="flex flex-col items-end gap-3">
-                  <button
-                    onClick={() => toggleRule(rule.id)}
-                    className={`relative w-10 h-5 rounded-full transition-colors duration-300 focus:outline-none ${
-                      isEnabled ? 'bg-amber' : 'bg-base-lighter'
-                    }`}
-                  >
-                    <div
-                      className={`absolute top-1 left-1 w-3 h-3 bg-white rounded-full transition-transform duration-300 ${
-                        isEnabled ? 'translate-x-5' : ''
-                      }`}
-                    />
-                  </button>
+              {/* TOGGLE SWITCH */}
+              <div
+                className={`toggle-switch ${rule.enabled ? 'active' : ''}`}
+                onClick={(e) => { e.stopPropagation(); toggleRule(rule.id); }}
+              />
 
-                  <div className={`flex items-center gap-2 bg-base px-2 py-1 rounded-lg border border-overlay transition-opacity ${isEnabled ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+              {/* MULTIPLIER SPINNER */}
+              {['FULL_HOUSE', 'TOP_ROW', 'MIDDLE_ROW', 'BOTTOM_ROW', 'ANY_ROW'].includes(rule.id) && rule.enabled && (
+                <div className="flex flex-col sm:items-end gap-1.5 ml-7 sm:ml-0" onClick={e => e.stopPropagation()}>
+                  <span className="text-[10px] font-medium uppercase tracking-wider text-text-muted">Claims</span>
+                  <div className="flex items-center gap-1 bg-surface border border-overlay rounded-md p-0.5">
                     <button
-                      onClick={() => updateMultiplier(rule.id, -1)}
-                      className="p-1 hover:text-amber transition-colors disabled:opacity-30"
-                      disabled={multiplier <= 1}
+                      className="spinner p-1 hover:bg-overlay rounded transition text-text-secondary disabled:opacity-30 disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-amber"
+                      aria-label="Decrease claims count"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setRuleMultiplier(rule.id, Math.max(1, rule.multiplier - 1));
+                      }}
+                      disabled={rule.multiplier <= 1}
                     >
                       <Minus size={12} />
                     </button>
-                    <span className="text-[11px] font-mono min-w-[2ch] text-center">
-                      x{multiplier}
+                    <span className="w-5 text-center font-mono text-sm font-bold text-amber" aria-live="polite">
+                      {rule.multiplier || 1}
                     </span>
                     <button
-                      onClick={() => updateMultiplier(rule.id, 1)}
-                      className="p-1 hover:text-amber transition-colors disabled:opacity-30"
-                      disabled={multiplier >= maxMultiplier}
+                      className="spinner p-1 hover:bg-overlay rounded transition text-text-secondary disabled:opacity-30 disabled:cursor-not-allowed focus:outline-none focus:ring-1 focus:ring-amber"
+                      aria-label="Increase claims count"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        const maxClaims = rule.id === 'ANY_ROW' ? 10 : 5;
+                        setRuleMultiplier(rule.id, Math.min(maxClaims, rule.multiplier + 1));
+                      }}
+                      disabled={rule.multiplier >= (rule.id === 'ANY_ROW' ? 10 : 5)}
                     >
                       <Plus size={12} />
                     </button>
                   </div>
                 </div>
-              </div>
+              )}
             </div>
           );
         })}

@@ -9,6 +9,14 @@ A professional-grade **Tambola (Housie) Companion** designed for the modern lott
 
 ---
 
+## 📽️ Walkthrough
+
+Watch the **Complete Feature Walkthrough (v1.2)** showing Rule Setup, OCR Scanning, and a Live Match to Full House.
+
+[**▶️ Play Video: Tambola Tracker Walkthrough**](walkthrough/Tambola_Tracker_Walkthrough.mp4)
+
+---
+
 ## ✨ Features
 
 ### 🎴 Advanced Ticket Management
